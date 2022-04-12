@@ -5,7 +5,7 @@ Assignment 4 - Visualizations and Multiple Views
 To help you focus on the final project this term (Spring 2022), we're making this project optional.
 That means if you do it and the grade is better than the avg of your other grades, it counts, and otherwise it does not count.
 
-~~~
+---
 
 One of the most powerful techniques for mitigating the shortcomings of a given visualization is to link it with other views.
 Linking a map to a bar or scatterplot, for instance, may allow you to overcome the shortcomings of a map.
