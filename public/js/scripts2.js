@@ -9,18 +9,10 @@ var dataset;  //Global var
 
 var url = "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv"
 
-d3.csv(url, function(error, data) {
-    // If error is not null, something went wrong.
-    if (error) {
-        console.log(error);  //Log the error.
-    } else {
-        //console.log(data);   //Log the data.
-        dataset = data; // Give the data a global scope
-        //Call some other functions that generate the visualization
-        createPlot1(dataset)
-        //createPlot2(dataset)
-        //createPlot3(dataset)
-    }
+d3.csv(url).then(function(d) {
+    console.log(d);
+    createPlot1(d)
+    //buildScatter(d);
 });
 
 // track_id
@@ -47,6 +39,7 @@ d3.csv(url, function(error, data) {
 // tempo
 // duration_ms
 function createPlot1(data) {
+    console.log("here")
     x = d3.scaleLinear()
         .domain(d3.extent(data, d => d.danceability)).nice()
         .range([margin.left, width - margin.right])
