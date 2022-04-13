@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+<script src="./js/scripts2.js" defer></script>
+<!--<script src="./js/scripts.js" defer></script>-->
+<%- include("./partials/nav.ejs") %>
+
+
+<svg id="danceVpop"></svg>
+<!--<svg width=600 height=600></svg>-->
+
+<!--<div>
+    <p>Im lazy so i didnt format this very well but heres a cool thing a made then the rest is just junk that i was experimenting with before i made this</p>
+    <svg class="svg11" width="1000" height="1000"></svg>
+</div>
+<div>
+    <svg class="svg1" width="600px" height="600px"></svg>
+    <button onclick="reloadPage()">Replay</button>
+</div>
+<svg class="svg2" width="500px" height="500px"></svg>
+<svg class="svg3" width="1000px" height="1000px"></svg>
+<svg class="svg4" width="1000px" height="1000px"></svg>
+<svg class="svg5" width="1000px" height="1000px"></svg>
+<svg class="svg6" width="1000px" height="1000px"></svg>
+<svg class="svg7" width="500px" height="500px"></svg>
+<svg class="svg8" width="500px" height="500px"></svg>
+<svg class="svg9" width="1000px" height="1000px"></svg>
+<div>
+    <svg class="svg10" width="500px" height="500px"></svg>
+    <ul>
+        <li><a onclick="drawPoly(3)">Triangle</a></li>
+        <li><a onclick="drawPoly(4)">Square</a></li>
+        <li><a onclick="drawPoly(5)">Pentagon</a></li>
+        <li><a onclick="drawPoly(6)">Hexagon</a></li>
+        <li><a onclick="drawPoly(7)">Septagon</a></li>
+        <li><a onclick="drawPoly(8)">Octagon</a></li>
+        <li><a onclick="drawPoly(9)">Nonagon</a></li>
+        <li><a onclick="drawPoly(10)">Decagon</a></li>
+        <li><a onclick="drawPoly(11)">11-agon</a></li>
+        <li><a onclick="drawPoly(12)">12-agon</a></li>
+        <li><a onclick="drawPoly(24)">Alot-agon</a></li>
+    </ul>
+</div>
+<svg class="svg100"></svg>-->
+<script>
+    dataUrl = 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv'
+
+</script>
+<!--<script defer>
+    d3.json('network.json').then(function(data){
+        console.log(data);
+        buildNetwork(data);
+    })
+
+    function buildNetwork(data){
+        var svg = d3.select('svg');
+        var height = +svg.attr('height');
+        var width = +svg.attr('width');
+
+        // simulation definition
+        var simulation = d3.forceSimulation(data.nodes)
+            .force('link', d3.forceLink(data.links).id(d => d.id).distance(100))
+            .force('charge', d3.forceManyBody().strength(-1000))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+        .force('x', d3.forceX(d => d.group == 1 ? -1000: 100))
+        // drawing nodes and links
+        var link = svg.append('g')
+            .selectAll('line')
+            .data(data.links)
+            .enter().append('line')
+            .attr('stroke-width', d => Math.sqrt(d.weight*16))
+            .attr('stroke', '#999')
+            .attr('stroke-opacity', 0.6)
+
+        var node = svg.append('g')
+            .selectAll('circle')
+            .data(data.nodes)
+            .enter().append('circle')
+            .attr('r', 8)
+            .attr('fill', d => color(d.group))
+            .attr('stroke', '#fff')
+            .attr('stroke-width', 1.5)
+            .call(drag(simulation));
+
+        node.append('title')
+            .text( d => d.id );
+
+
+        // use simulation to update nodes and links
+        simulation.on('tick', function () {
+            link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y)
+
+            node
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y)
+
+
+
+        })
+        function drag(simulation) {
+            function dragstarted(event) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                event.subject.fx = event.subject.x;
+                event.subject.fy = event.subject.y;
+            }
+
+            function dragged(event) {
+                event.subject.fx = event.x;
+                event.subject.fy = event.y;
+            }
+
+            function dragended(event) {
+                if (!event.active) simulation.alphaTarget(0);
+                event.subject.fx = null;
+                event.subject.fy = null;
+            }
+
+            return d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended);
+        }
+    }
+
+</script>-->
+<!--Script for world map -->
+<!--<script defer>
+    Promise.all([
+        d3.json('world.geojson'),
+        d3.csv('cities.csv')
+    ]).then( ([countries, cities]) => {
+        createMap(countries,cities)
+    })
+
+
+    function createMap(countries, cities) {
+        console.log(countries)
+        var proj = d3.geoEquirectangular()
+            .translate([250, 250])
+            .scale(120);
+
+        var gpath = d3.geoPath()
+        .projection(proj);
+
+        d3.select('svg')
+            .append('g')
+            .attr('id', 'countries')
+            .selectAll('path')
+            .data(countries.features)
+            .enter()
+            .append('path')
+                .attr('d', function(d) { console.log(d); return gpath(d); })
+                .attr('stroke-width', 1)
+                .attr('stroke', '#252525')
+                .attr('id', d => d.id)
+                .attr('fill', 'white' )
+                .on('mouseover', function() {
+                    d3.select(this).attr('fill', 'green')
+                })
+                .on('mouseout', function() {
+                    d3.select(this).attr('fill', 'white')
+                });
+
+        // d3.select('#EGY')
+        // .attr('fill', 'green');
+
+        // to zoom set up d3 machinery
+        var mapZoom = d3.zoom()
+            .on('zoom', zoomed);
+
+        // setp to grea settings
+        var zoomSettings = d3.zoomIdentity
+            .translate(250, 250)
+            .scale(120)
+
+        // mush in d3 machinery to map
+        d3.select('svg')
+        .call(mapZoom)
+        .call(mapZoom.transform, zoomSettings);
+
+        function zoomed(e) {
+            proj.translate([e.transform.x, e.transform.y])
+            .scale(e.transform.k); // can us e.transform.k to add stuff as you zoom in with if statement
+
+            d3.selectAll('path')
+            .attr('d', gpath);
+        }
+
+    }
+</script>-->
+<%- include("./partials/footer.ejs") %>
+
+</body>
+</html>
