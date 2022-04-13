@@ -4,13 +4,15 @@
 
 <body>
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://d3js.org/d3-hexbin.v0.2.min.js"></script>
 <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 <script src="./js/scripts2.js" defer></script>
 <!--<script src="./js/scripts.js" defer></script>-->
 <%- include("./partials/nav.ejs") %>
 
 
-<svg id="danceVpop"></svg>
+<svg id="danceVeng" width="600px" height="400px"></svg>
+<svg id="speechVinst" width="600px" height="400px"></svg>
 <!--<svg width=600 height=600></svg>-->
 
 <!--<div>
@@ -46,10 +48,6 @@
     </ul>
 </div>
 <svg class="svg100"></svg>-->
-<script>
-    dataUrl = 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv'
-
-</script>
 <!--<script defer>
     d3.json('network.json').then(function(data){
         console.log(data);
